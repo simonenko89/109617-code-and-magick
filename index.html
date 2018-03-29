@@ -180,7 +180,24 @@
     <p class="setup-similar-label">Петр Петров</p>
   </div>
 </template>
-
+<script>
+	var fireballSize = 22;
+	var getFireballSpeed = function(left) {
+		return left ? 5 : 2;
+	};
+	var wizardSpeed = 3;
+	var wizardWidth = 70;
+	var getWizardHeight = function(width) {
+		return Math.round(1.337 * width);
+	};
+	var getWizardX = function(width) {
+		return Math.round(width / 2 - wizardWidth / 2);
+	};
+	var getWizardY = function(height) {
+		// берем треть от высоты игрового поля и вычитаем рост мага, чтобы от его нижней части до низа игрового поля было 2/3 высоты игрового поля
+		return Math.round(height / 3 - getWizardHeight(wizardWidth));
+	};
+</script>
 <script src="js/game.js"></script>
 
 </body>

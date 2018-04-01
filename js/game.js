@@ -497,7 +497,7 @@ window.Game = (function () {
       return array;
     },
 
-    _drawMessage: function (message) {
+/*    _drawMessage: function (message) {
       var ctx = this.ctx;
 
       var drawCloud = function (x, y, width, heigth) {
@@ -528,7 +528,7 @@ window.Game = (function () {
       message.split('\n').forEach(function (line, i) {
         ctx.fillText(line, 200, 80 + 20 * i);
       });
-    },
+    },*/
 
     /**
      * Предзагрузка необходимых изображений для уровня.

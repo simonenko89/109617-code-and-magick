@@ -2,17 +2,17 @@
 
 document.querySelector('.setup').classList.remove('hidden');
 
-var genRandValue = function (itemList) {
+var generateRandomValue = function (itemList) {
   return itemList[Math.floor(Math.random() * itemList.length)];
 };
 
-var genRandomWizzard = function (firstNameList, lastNameList, coalColorList, eyesColorList) {
+var generateRandomWizard = function (firstNameList, lastNameList, coalColorList, eyesColorList) {
 
   var randomWizard = {};
 
-  randomWizard.wizardName = genRandValue(firstNameList) + ' ' + genRandValue(lastNameList);
-  randomWizard.wizardCoatColor = genRandValue(coalColorList);
-  randomWizard.wizardEyesColor = genRandValue(eyesColorList);
+  randomWizard.wizardName = generateRandomValue(firstNameList) + ' ' + generateRandomValue(lastNameList);
+  randomWizard.wizardCoatColor = generateRandomValue(coalColorList);
+  randomWizard.wizardEyesColor = generateRandomValue(eyesColorList);
 
   return randomWizard;
 };
@@ -50,16 +50,16 @@ var EYES_COLOR_LIST = ['black', 'red', 'blue', 'yellow', 'green'];
 var wizardList = [];
 
 for (var i = 0; i < 4; i++) {
-  wizardList[i] = genRandomWizzard(FIRST_NAME_LIST, LAST_NAME_LIST, COAT_COLOR_LIST, EYES_COLOR_LIST);
+  wizardList[i] = generateRandomWizard(FIRST_NAME_LIST, LAST_NAME_LIST, COAT_COLOR_LIST, EYES_COLOR_LIST);
 }
 
 var similarListElement = document.querySelector('.setup-similar-list');
 
-var similarWizzardTemplate = document.querySelector('#similar-wizard-template')
+var similarWizardTemplate = document.querySelector('#similar-wizard-template')
     .content.querySelector('.setup-similar-item');
 
 var renderWizard = function (wizard) {
-  var wizardElement = similarWizzardTemplate.cloneNode(true);
+  var wizardElement = similarWizardTemplate.cloneNode(true);
 
   wizardElement.querySelector('.setup-similar-label').textContent = wizard.wizardName;
   wizardElement.querySelector('.wizard-coat').style.fill = wizard.wizardCoatColor;

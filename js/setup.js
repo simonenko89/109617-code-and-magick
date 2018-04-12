@@ -1,7 +1,5 @@
 'use strict';
 
-document.querySelector('.setup').classList.remove('hidden');
-
 var generateRandomValue = function (itemList) {
   return itemList[Math.floor(Math.random() * itemList.length)];
 };
@@ -46,6 +44,7 @@ var COAT_COLOR_LIST = [
   'rgb(0, 0, 0)'
 ];
 var EYES_COLOR_LIST = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLOR_LIST = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
 var wizardList = [];
 
@@ -77,3 +76,79 @@ for (i = 0; i < wizardList.length; i++) {
 similarListElement.appendChild(fragment);
 
 document.querySelector('.setup-similar').classList.remove('hidden');
+
+
+// Работа с обработчиком событий
+var setup = document.querySelector('.setup');
+var setupOpen = document.querySelector('.setup-open');
+var setupClose = setup.querySelector('.setup-close');
+var wizardEyesBlock = setup.querySelector('.wizard-eyes');
+var wizardFireballBlock = setup.querySelector('.setup-fireball-wrap');
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+var setWizardEyesColor = function () {
+  var randomColor = generateRandomValue(EYES_COLOR_LIST);
+  wizardEyesBlock.style.fill = randomColor;
+  setup.querySelector('.setup-wizard-eyes').value = randomColor;
+};
+
+var setWizardFireballColor = function () {
+  var randomColor = generateRandomValue(FIREBALL_COLOR_LIST);
+  wizardFireballBlock.style.backgroundColor = randomColor;
+  setup.querySelector('.setup-fireball-color').value = randomColor;
+};
+
+var onPopupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  setup.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupEscPress);
+  wizardEyesBlock.addEventListener('click', setWizardEyesColor);
+  wizardFireballBlock.addEventListener('click', setWizardFireballColor);
+};
+
+var closePopup = function () {
+  setup.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupEscPress);
+  wizardEyesBlock.removeEventListener('click', setWizardEyesColor);
+  wizardFireballBlock.removeEventListener('click', setWizardFireballColor);
+};
+
+setupOpen.addEventListener('click', function () {
+  openPopup();
+});
+
+setupOpen.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    openPopup();
+  }
+});
+
+setupClose.addEventListener('click', function () {
+  closePopup();
+});
+
+setupClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+var userNameInput = document.querySelector('.setup-user-name');
+
+userNameInput.addEventListener('invalid', function () {
+  if (userNameInput.validity.tooShort) {
+    userNameInput.setCustomValidity('Пара символов... маловато');
+  } else if (userNameInput.validity.tooLong) {
+    userNameInput.setCustomValidity('Имя не должно превышать 25-ти символов');
+  } else if (userNameInput.validity.valueMissing) {
+    userNameInput.setCustomValidity('В бой без имени?');
+  } else {
+    userNameInput.setCustomValidity('');
+  }
+});
